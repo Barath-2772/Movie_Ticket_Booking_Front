@@ -1,0 +1,89 @@
+:root {
+  --primary-text-color: #333333; /* Darker text for titles */
+  --secondary-text-color: #666666; /* Grey for genre/subtext */
+  --overlay-text-color: #ffffff; /* White for text on dark poster overlay */
+  --rating-star-color: #ff9900; /* Orange for star */
+}
+
+.movie-card {
+  cursor: pointer;
+  text-align: left;
+  /* Add a small shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px; /* Consistent rounded corners */
+  overflow: hidden; /* Ensures shadow/border doesn't extend beyond */
+}
+
+.poster-container {
+  position: relative;
+  border-radius: 8px; /* Match card radius */
+  overflow: hidden;
+  margin-bottom: 8px; /* Slightly less margin */
+  background-color: #f0f0f0; /* Lighter placeholder if image fails */
+  aspect-ratio: 2 / 3; /* Consistent aspect ratio */
+  display: flex; /* For centering text if image fails */
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-text-color); /* Color for broken image text */
+  font-size: 0.9em;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image covers area without distortion */
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover .movie-poster {
+  transform: scale(1.05);
+}
+
+.poster-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 10px; /* Adjusted padding */
+  color: var(--overlay-text-color);
+  font-weight: bold;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align text to start */
+  font-size: 0.85rem; /* Smaller font for overlay text */
+}
+
+.movie-rating-votes {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Space between star and text */
+}
+
+.movie-rating-votes .star {
+  color: var(--rating-star-color); /* Orange star */
+}
+    
+.movie-info {
+    padding: 0 10px 10px; /* Padding for text below poster */
+}
+
+.movie-title {
+  margin: 0;
+  font-size: 1.05rem; /* Slightly smaller than before */
+  font-weight: 600; /* Slightly less bold */
+  color: var(--primary-text-color);
+  white-space: nowrap; /* Prevent title from wrapping */
+  overflow: hidden;    /* Hide overflowed text */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+}
+
+.movie-genre {
+  margin: 4px 0 0 0;
+  font-size: 0.85rem; /* Smaller genre text */
+  color: var(--secondary-text-color);
+  white-space: nowrap; /* Prevent genre from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
