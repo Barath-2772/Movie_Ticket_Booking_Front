@@ -1,0 +1,38 @@
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.login-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.error-message {
+  color: #d93025; /* Red for errors */
+  font-size: 0.9rem;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+}

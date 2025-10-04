@@ -1,0 +1,32 @@
+.movie-list-container {
+  padding: 20px 0; /* Adjust container padding as needed */
+}
+
+.movie-list-container h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-text-color);
+  margin-bottom: 25px; /* More space below heading */
+}
+
+.movie-grid {
+  display: grid;
+  /* Adjust minmax for desired card width and responsiveness */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+  gap: 25px; /* Space between movie cards */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+}

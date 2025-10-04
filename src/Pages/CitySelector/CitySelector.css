@@ -1,0 +1,14 @@
+.city-select {
+  background-color: #ffffff; /* Changed to a white background */
+  color: #000000;             /* Changed text color to black */
+  border: 1px solid #cccccc; /* Added a light gray border */
+  border-radius: 5px;
+  padding: 8px 12px;         /* Added padding for better spacing */
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.city-select option {
+  background-color: #ffffff; /* Options background is now white */
+  color: #000000;             /* Options text is now black */
+}

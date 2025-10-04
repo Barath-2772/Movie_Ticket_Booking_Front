@@ -1,0 +1,66 @@
+/* MyBookingsPage.css */
+
+/* Page container */
+.my-bookings-page {
+  padding: 20px;
+}
+
+.my-bookings-page h2 {
+  margin-bottom: 20px;
+  color: var(--header-bg); /* Dark header */
+  font-weight: 700;
+}
+
+/* Booking card */
+.booking-card {
+  background-color: var(--content-bg);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Movie title */
+.booking-card h4 {
+  color: var(--accent-pink);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* Booking details */
+.booking-card p {
+  margin: 6px 0;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+
+.booking-card p span {
+  font-weight: 500;
+  color: var(--header-bg);
+}
+
+/* Booking ID badge */
+.booking-id-badge {
+  background-color: var(--accent-pink);
+  color: var(--text-light);
+  font-size: 0.85rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* No bookings message */
+.no-bookings {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  margin-top: 40px;
+}
