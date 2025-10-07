@@ -8,10 +8,14 @@ function MovieCard({ movie, onMovieSelect }) { // Receive the function
 
   return (
     // Add the onClick event to the main div
+    
     <div className="movie-card" onClick={() => onMovieSelect(movie.id)}>
+
       <div className="poster-container">
+        
         <img src={movie.posterUrl} alt={movie.title} className="movie-poster" />
         <div className="poster-overlay">
+          
           <span>👍 {movie.likes}</span>
         </div>
       </div>

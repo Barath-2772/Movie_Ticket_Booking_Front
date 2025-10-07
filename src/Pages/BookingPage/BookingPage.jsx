@@ -35,7 +35,7 @@ const seatLayoutConfig = {
         { type: "spacer" },
         { num: "11" }, { num: "12" }, { num: "13" }, { num: "14" }
       ],
-    })),
+    }))
   },
   standard: {
     price: 180.0,
@@ -48,7 +48,7 @@ const seatLayoutConfig = {
         { type: "spacer" },
         { num: "11" }, { num: "12" }, { num: "13" }, { num: "14" }
       ],
-    })),
+    }))
   },
 };
 
@@ -58,13 +58,16 @@ function BookingPage({ show, user, onGoBack }) {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [bookedSeats, setBookedSeats] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [ticketCount, setTicketCount] = useState(2);
+  // Default ticket count set to 1
+  const [ticketCount, setTicketCount] = useState(1);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [selectedShowtime, setSelectedShowtime] = useState(showtimes[1]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ✅ Popup state
+  // Initial ticket selection popup state
   const [showPopup, setShowPopup] = useState(true);
+  // NEW: State for the "Add more seats?" confirmation popup
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
 
   useEffect(() => {
     if (!show?.id) return;
@@ -101,9 +104,10 @@ function BookingPage({ show, user, onGoBack }) {
       if (prev.includes(seatId)) {
         return prev.filter(s => s !== seatId);
       } else {
+        // MODIFIED LOGIC: If count is exceeded, show the confirmation popup
         if (prev.length >= ticketCount) {
-          alert(`You can only select ${ticketCount} seat(s).`);
-          return prev;
+          setShowConfirmPopup(true);
+          return prev; // Do not select the seat yet
         }
         return [...prev, seatId];
       }
@@ -187,23 +191,50 @@ function BookingPage({ show, user, onGoBack }) {
 
   return (
     <div className="booking-page-container">
-      {/* ✅ Popup overlay */}
+      
+      {/* 1. Initial Ticket Count Popup */}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2 className="popup-title">⚠️ Please Select the Seat!!</h2>
+            <h2 className="popup-title">⚠️ How many seats?</h2> 
 
-            {/* Counter inside popup */}
             <div className="popup-counter">
               <button onClick={() => setTicketCount(Math.max(1, ticketCount - 1))}>-</button>
               <span>{ticketCount}</span>
               <button onClick={() => setTicketCount(Math.min(10, ticketCount + 1))}>+</button>
             </div>
 
-            {/* Confirm button */}
+            {/* MODIFIED: Removed the dynamic ticket count number */}
             <button className="popup-btn" onClick={() => setShowPopup(false)}>
               Select Seats
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* 2. NEW: Add More Seats Confirmation Popup */}
+      {showConfirmPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box confirmation-box">
+            <h2 className="popup-title">Do you want to add more seats?</h2>
+            
+            <div className="confirmation-buttons">
+              <button 
+                className="confirm-yes" 
+                onClick={() => {
+                  setShowConfirmPopup(false);
+                  setShowPopup(true); // Re-open the initial popup
+                }}
+              >
+                Yes
+              </button>
+              <button 
+                className="confirm-no" 
+                onClick={() => setShowConfirmPopup(false)}
+              >
+                No
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -232,14 +263,7 @@ function BookingPage({ show, user, onGoBack }) {
           ))}
         </div>
 
-        <div className="ticket-counter">
-          <h3>How many seats?</h3>
-          <div className="counter-controls">
-            <button onClick={() => setTicketCount(Math.max(1, ticketCount - 1))}>-</button>
-            <span>{ticketCount}</span>
-            <button onClick={() => setTicketCount(Math.min(10, ticketCount + 1))}>+</button>
-          </div>
-        </div>
+        {/* The redundant ticket counter div has been removed */}
 
         <div className="seat-map-wrapper">
           <div className="seat-map" style={{ transform: `scale(${zoomLevel})` }}>
@@ -275,9 +299,9 @@ function BookingPage({ show, user, onGoBack }) {
               <h4>{selectedSeats.length} Ticket(s)</h4>
               <p>{selectedSeats.join(", ")}</p>
             </div>
-            <button 
-              onClick={handleConfirmBooking} 
-              className="confirm-btn" 
+            <button
+              onClick={handleConfirmBooking}
+              className="confirm-btn"
               disabled={isSubmitting || selectedSeats.length !== ticketCount}
             >
               {isSubmitting ? "Booking..." : `Pay ₹${totalPrice.toFixed(2)}`}
